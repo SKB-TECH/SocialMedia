@@ -1,5 +1,6 @@
 const express = require('express')
-const db=require('./config/db')
+const mongoose = requie
+
 //le lien vers notre variable d'environnement
 require('dotenv').config({ path: './config/.env' })
 const app = express()

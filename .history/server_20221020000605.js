@@ -1,5 +1,5 @@
 const express = require('express')
-const db=require('./config/db')
+const db=require(.)
 //le lien vers notre variable d'environnement
 require('dotenv').config({ path: './config/.env' })
 const app = express()
