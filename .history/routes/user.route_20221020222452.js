@@ -9,7 +9,7 @@ router.post('/register', authController.signUp)
 // autres action sur utilisateur
 router.get('/', userController.getAllUsers)
 router.get('/:id', userController.userInfo)
-router.put('/:id', userController.updateUser)
+router.
 
 //exportation pour l'utilisation 
 module.exports = router
