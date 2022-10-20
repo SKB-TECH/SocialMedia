@@ -1,6 +1,6 @@
 const express = require('express')
 const db = require('./config/db')
-const userRoutes = require('./routes/user.route')
+const userRoutes = require('.user.route')
 //le lien vers notre variable d'environnement
 require('dotenv').config({ path: './config/.env' })
 const app = express()

@@ -6,7 +6,7 @@ require('dotenv').config({ path: './config/.env' })
 const app = express()
 
 // les routes
-app.use('/api/user', userRoutes)
+
 
 
 //lancement du server

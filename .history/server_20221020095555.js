@@ -1,12 +1,13 @@
 const express = require('express')
-const db = require('./config/db')
-const userRoutes = require('./routes/user.route')
+const db=require('./config/db')
 //le lien vers notre variable d'environnement
 require('dotenv').config({ path: './config/.env' })
 const app = express()
 
-// les routes
-app.use('/api/user', userRoutes)
+
+
+
+
 
 
 //lancement du server
