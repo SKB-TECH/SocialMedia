@@ -31,7 +31,7 @@ exports.updateUser = async (req, res) => {
         return res.status(400).send("ID unkonwn:" + req.params.id);
 
     try {
-        await userModel.findOneAndUpdate({ _id: req.params.id }, { $set: { bio: req.body.bio } }, { new: true, upsert: true, setDefaultsOnInsert: true },
+        await userModel.findOneAndUpdate(req.params.id, { $set: { bio: req.body.bio } }, { new: true, upsert: true, setDefaultsOnInsert: true },
             // (error, docs) => {
             //     if (!error) return res.status(200).send(docs);
             // }
@@ -55,18 +55,16 @@ exports.deleteUser = async (req, res) => {
     }
 }
 
-//la fonction suivre et etre suivi
-
 exports.follow = async (req, res) => {
-    if (!objectID.isValid(req.params.id) || !objectID.isValid(req.body.idTofollow))
+    if (!objectID.isValid(req.params.id))
         return res.status(400).send("ID unkonwn:" + req.params.id);
-
     try {
         await userModel.findByIdAndUpdate(
             req.params.id,
             { $addToSet: { following: req.body.idTofollow } },
-            { new: true, upsert: true }
+            { new: true, upsert: true}
         )
+
         await userModel.findByIdAndUpdate(
             req.body.idTofollow,
             { $addToSet: { followers: req.params.id } },

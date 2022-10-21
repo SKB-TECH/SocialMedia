@@ -35,52 +35,9 @@ exports.updateUser = async (req, res) => {
             // (error, docs) => {
             //     if (!error) return res.status(200).send(docs);
             // }
-        ).then((docs) => res.send(docs))
+        ).then
 
     } catch (error) {
         return res.status(500).send({ message: error });
     }
 };
-
-// Suppresson de l'utilisateur
-exports.deleteUser = async (req, res) => {
-    if (!objectID.isValid(req.params.id))
-        return res.status(400).send("ID unkonwn:" + req.params.id);
-
-    try {
-        await userModel.remove({ _id: req.params.id }).exec()
-        res.status(200).json({ message: "Successfuly deleted" })
-    } catch (error) {
-        res.status(500).json({ message: error })
-    }
-}
-
-//la fonction suivre et etre suivi
-
-exports.follow = async (req, res) => {
-    if (!objectID.isValid(req.params.id) || !objectID.isValid(req.body.idTofollow))
-        return res.status(400).send("ID unkonwn:" + req.params.id);
-
-    try {
-        await userModel.findByIdAndUpdate(
-            req.params.id,
-            { $addToSet: { following: req.body.idTofollow } },
-            { new: true, upsert: true }
-        )
-        await userModel.findByIdAndUpdate(
-            req.body.idTofollow,
-            { $addToSet: { followers: req.params.id } },
-            { new: true, upsert: true }
-        )
-            .then((docs) => res.status(200).send(docs))
-
-    } catch (error) {
-        return res.status(500).json({ message: error });
-    }
-}
-
-
-exports.unfollow = async (req, res) => {
-    if (!objectID.isValid(req.params.id))
-        return res.status(400).send("ID unkonwn:" + req.params.id);
-}

@@ -55,23 +55,20 @@ exports.deleteUser = async (req, res) => {
     }
 }
 
-//la fonction suivre et etre suivi
-
 exports.follow = async (req, res) => {
-    if (!objectID.isValid(req.params.id) || !objectID.isValid(req.body.idTofollow))
+    if (!objectID.isValid(req.params.id))
         return res.status(400).send("ID unkonwn:" + req.params.id);
-
     try {
+        await userModel.findByIdAndUpdate(req.params.id, {
+            $addToSet: {
+                following: req.body.idTofollow
+            }
+        })
+
         await userModel.findByIdAndUpdate(
-            req.params.id,
-            { $addToSet: { following: req.body.idTofollow } },
-            { new: true, upsert: true }
-        )
-        await userModel.findByIdAndUpdate(
-            req.body.idTofollow,
-            { $addToSet: { followers: req.params.id } },
-            { new: true, upsert: true }
-        )
+            req.b
+            ,{})
+
             .then((docs) => res.status(200).send(docs))
 
     } catch (error) {

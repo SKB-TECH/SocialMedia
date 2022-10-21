@@ -56,7 +56,6 @@ exports.deleteUser = async (req, res) => {
 }
 
 //la fonction suivre et etre suivi
-
 exports.follow = async (req, res) => {
     if (!objectID.isValid(req.params.id) || !objectID.isValid(req.body.idTofollow))
         return res.status(400).send("ID unkonwn:" + req.params.id);
