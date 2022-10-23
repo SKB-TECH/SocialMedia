@@ -12,3 +12,14 @@ exports.signUp = async (req, res) => {
         res.status(200).send({ error })
     }
 }
+
+// Authentification de l'utilisateur
+exports.signIn = async (req, res) => {
+    fr
+    
+}
+
+// Deconnexion de l'utilisateur
+exports.logout = (req, res) => {
+
+}

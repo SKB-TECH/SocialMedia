@@ -12,3 +12,7 @@ exports.signUp = async (req, res) => {
         res.status(200).send({ error })
     }
 }
+
+// Authentification de l'utilisateur
+
+exports.

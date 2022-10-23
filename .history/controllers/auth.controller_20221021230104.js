@@ -1,6 +1,6 @@
 //import le model de la collection
 const userModel = require('../models/usermodel')
-
+const jwt =require('jsonwebtoken')
 
 // Inscription d'un nouveau utilisateur
 exports.signUp = async (req, res) => {
@@ -11,4 +11,19 @@ exports.signUp = async (req, res) => {
     } catch (error) {
         res.status(200).send({ error })
     }
+}
+
+// Authentification de l'utilisateur
+exports.signIn = async (req, res) => {
+    const {email,password}=req.body
+    try {
+        await user=userModel.lo
+    } catch (error) {
+        
+    }
+}
+
+// Deconnexion de l'utilisateur
+exports.logout = (req, res) => {
+
 }
