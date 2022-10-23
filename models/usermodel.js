@@ -5,8 +5,8 @@ const bcrypt = require('bcrypt')
 const userSchema = mongoose.Schema({
     pseudo: {
         type: String,
-        maxLength: [55, "Le pseudo doit contenir au maximum 55 caracteres"],
-        minLength: [4, "Le pseudo doit contenir au minimum 4 caracteres"],
+        maxlength: [55, "Le pseudo doit contenir au maximum 55 caracteres"],
+        minlength: [4, "Le pseudo doit contenir au minimum 4 caracteres"],
         required: true,
         unique: true,
         trim: true
@@ -24,8 +24,8 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true,
-        maxLength: [12, "Le password doit contenir au maximum 12 caracteres"],
-        minLength: [6, "Le password doit contenir au minimum 6 caracteres"],
+        maxlength: [12, "Le password doit contenir au maximum 12 caracteres"],
+        minlength: [6, "Le password doit contenir au minimum 6 caracteres"],
         lowercase: true,
         unique: true,
         trim: true
