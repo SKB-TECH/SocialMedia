@@ -4,10 +4,10 @@ const jwt = require('jsonwebtoken')
 const { json } = require('body-parser')
 
 //generation du toke
-const maxAge = 7 * 24 * 60 * 60 * 1000
+const maxAge = 1 * 24 * 60 * 60 * 1000
 
 const createToken = (id) => {
-    return jwt.sign({ id }, process.env.TOKEN_SECRTE, {
+    return jwt.sign({ id }, process.env.TOKEN, {
         expiresIn: maxAge
     })
 }
@@ -38,6 +38,7 @@ exports.signIn = async (req, res) => {
 
 // Deconnexion de l'utilisateur
 exports.logout = (req, res) => {
-
+    res.cookie('jwt', '', { maxAge: 1 })
+    res.redirect('/')
 }
 
