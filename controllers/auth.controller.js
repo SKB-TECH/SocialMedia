@@ -1,13 +1,14 @@
 //import le model de la collection
 const userModel = require('../models/usermodel')
+const { signupError } = require('../utils/errors')
 const jwt = require('jsonwebtoken')
 const { json } = require('body-parser')
 
 //generation du toke
-const maxAge = 7 * 24 * 60 * 60 * 1000
+const maxAge = 1 * 24 * 60 * 60 * 1000
 
 const createToken = (id) => {
-    return jwt.sign({ id }, process.env.TOKEN_SECRTE, {
+    return jwt.sign({ id }, process.env.TOKEN, {
         expiresIn: maxAge
     })
 }
@@ -18,8 +19,9 @@ exports.signUp = async (req, res) => {
     try {
         const user = await userModel.create({ pseudo, email, password })
         res.status(200).json({ user: user._id })
-    } catch (error) {
-        res.status(200).send({ error })
+    }catch (error) {
+        const errors = signupError(error)
+        res.status(200).send({ errors })
     }
 }
 
@@ -38,6 +40,7 @@ exports.signIn = async (req, res) => {
 
 // Deconnexion de l'utilisateur
 exports.logout = (req, res) => {
-
+    res.cookie('jwt', '', { maxAge: 1 })
+    res.redirect('/')
 }
 
