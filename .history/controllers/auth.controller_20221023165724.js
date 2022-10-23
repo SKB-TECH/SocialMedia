@@ -27,10 +27,11 @@ exports.signUp = async (req, res) => {
 exports.signIn = async (req, res) => {
     const { email, password } = req.body
     try {
-        const user = await userModel.login(email, password)
+        const user = await userModel.log({ email})
         const token = createToken(user._id)
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge })
         res.status(200).json({ user: user._id })
+
     } catch (error) {
         res.status(403).json({ message: error })
     }
@@ -40,4 +41,3 @@ exports.signIn = async (req, res) => {
 exports.logout = (req, res) => {
 
 }
-

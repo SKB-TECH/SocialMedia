@@ -31,6 +31,7 @@ exports.signIn = async (req, res) => {
         const token = createToken(user._id)
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge })
         res.status(200).json({ user: user._id })
+
     } catch (error) {
         res.status(403).json({ message: error })
     }
@@ -40,4 +41,3 @@ exports.signIn = async (req, res) => {
 exports.logout = (req, res) => {
 
 }
-

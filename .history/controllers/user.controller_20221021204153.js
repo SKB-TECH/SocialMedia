@@ -1,7 +1,6 @@
 const userModel = require("../models/usermodel");
 const objectID = require("mongoose").Types.ObjectId;
 
-
 // Affiche tout les utilisateurs
 exports.getAllUsers = async (req, res, next) => {
     const users = await userModel.find().select("-password");

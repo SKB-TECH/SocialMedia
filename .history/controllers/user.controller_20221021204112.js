@@ -1,7 +1,6 @@
 const userModel = require("../models/usermodel");
 const objectID = require("mongoose").Types.ObjectId;
 
-
 // Affiche tout les utilisateurs
 exports.getAllUsers = async (req, res, next) => {
     const users = await userModel.find().select("-password");
@@ -80,7 +79,7 @@ exports.follow = async (req, res) => {
     }
 }
 
-// fonction pour se des abonnes aux personnes qu'on peut suivre sur le reseau
+// fonction pour 
 exports.unfollow = async (req, res) => {
     if (!objectID.isValid(req.params.id) || !objectID.isValid(req.body.idToUnfollow))
         return res.status(400).send("ID unkonwn:" + req.params.id);
@@ -102,4 +101,3 @@ exports.unfollow = async (req, res) => {
         return res.status(500).json({ message: error });
     }
 }
-

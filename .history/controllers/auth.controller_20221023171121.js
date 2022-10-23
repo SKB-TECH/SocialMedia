@@ -40,4 +40,3 @@ exports.signIn = async (req, res) => {
 exports.logout = (req, res) => {
 
 }
-

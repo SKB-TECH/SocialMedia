@@ -26,13 +26,15 @@ exports.signUp = async (req, res) => {
 // Authentification de l'utilisateur
 exports.signIn = async (req, res) => {
     const { email, password } = req.body
+
     try {
-        const user = await userModel.login(email, password)
+        const user = await userModel.login({ email, password })
         const token = createToken(user._id)
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge })
         res.status(200).json({ user: user._id })
+        
     } catch (error) {
-        res.status(403).json({ message: error })
+        res.status(500).json({ error })
     }
 }
 
@@ -40,4 +42,3 @@ exports.signIn = async (req, res) => {
 exports.logout = (req, res) => {
 
 }
-
