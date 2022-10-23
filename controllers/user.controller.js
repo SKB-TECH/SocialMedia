@@ -79,8 +79,26 @@ exports.follow = async (req, res) => {
     }
 }
 
-
+// fonction pour se des abonnes aux personnes qu'on peut suivre sur le reseau
 exports.unfollow = async (req, res) => {
-    if (!objectID.isValid(req.params.id))
+    if (!objectID.isValid(req.params.id) || !objectID.isValid(req.body.idToUnfollow))
         return res.status(400).send("ID unkonwn:" + req.params.id);
+
+    try {
+        await userModel.findByIdAndUpdate(
+            req.params.id,
+            { $pull: { following: req.body.idToUnfollow } },
+            { new: true, upsert: true }
+        )
+        await userModel.findByIdAndUpdate(
+            req.body.idToUnfollow,
+            { $pull: { followers: req.params.id } },
+            { new: true, upsert: true }
+        )
+            .then((docs) => res.status(200).send(docs))
+
+    } catch (error) {
+        return res.status(500).json({ message: error });
+    }
 }
+

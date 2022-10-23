@@ -57,5 +57,23 @@ userSchema.pre("save", async function (next) {
     next()
 })
 
+// decryptage du mot de passe en cas de login
+
+userSchema.statics.login = async function (email, password) {
+    const user = await this.findOne({ email })
+    if (user) {
+        const auth = bcrypt.compare(password, user.password)
+        if (auth) {
+            return user;
+        } else {
+            res.status(403).json({ "message": "Incorrect password" })
+        }
+    }
+    else {
+        res.status(403).json({ "message": "Incorrect password" })
+    }
+}
+
+
 const userModel = mongoose.model("user", userSchema)
 module.exports = userModel
