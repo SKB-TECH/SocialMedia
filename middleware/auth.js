@@ -15,8 +15,7 @@ exports.checkUser = (req, res, next) => {
                 next();
             } else {
                 let user = await userModel.findById(decode.id);
-                res.locals.user = user;
-                console.log(user);
+                res.locals.user = user
                 next();
             }
         });

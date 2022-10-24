@@ -1,6 +1,6 @@
 //import le model de la collection
 const userModel = require('../models/usermodel')
-const { signupError } = require('../utils/errors')
+const { signupError, signInError } = require('../utils/errors')
 const jwt = require('jsonwebtoken')
 const { json } = require('body-parser')
 
@@ -19,7 +19,7 @@ exports.signUp = async (req, res) => {
     try {
         const user = await userModel.create({ pseudo, email, password })
         res.status(200).json({ user: user._id })
-    }catch (error) {
+    } catch (error) {
         const errors = signupError(error)
         res.status(200).send({ errors })
     }
@@ -33,8 +33,10 @@ exports.signIn = async (req, res) => {
         const token = createToken(user._id)
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge })
         res.status(200).json({ user: user._id })
-    } catch (error) {
-        res.status(403).json({ message: error })
+
+    } catch (err) {
+        const errors = signInError(err)
+        res.status(200).json({ errors })
     }
 }
 

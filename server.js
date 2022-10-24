@@ -1,6 +1,7 @@
 const express = require('express')
 const db = require('./config/db')
 const userRoutes = require('./routes/user.route')
+const postRoutes = require('./routes/post.route')
 const bodyParse = require('body-parser')
 const cookieParser = require('cookie-parser')
 //le lien vers notre variable d'environnement
@@ -21,6 +22,7 @@ app.get("/jwtid", requireAuth, (req, res) => {
 
 // les middlewares routage
 app.use('/api/user', userRoutes)
+app.use('/api/post', postRoutes)
 
 //lancement du server
 app.listen(process.env.PORT || 4200, () => {
