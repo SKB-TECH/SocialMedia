@@ -10,7 +10,7 @@ exports.readPost = (req, res) => {
         } else {
             console.log("Error to get data:" + error);
         }
-    });
+    }).sort({ createdAt: -1 });
 };
 
 // createPost
