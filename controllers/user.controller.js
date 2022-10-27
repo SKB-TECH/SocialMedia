@@ -84,7 +84,6 @@ exports.follow = async (req, res) => {
 exports.unfollow = async (req, res) => {
     if (!objectID.isValid(req.params.id) || !objectID.isValid(req.body.idToUnfollow))
         return res.status(400).send("ID unkonwn:" + req.params.id);
-
     try {
         await userModel.findByIdAndUpdate(
             req.params.id,
