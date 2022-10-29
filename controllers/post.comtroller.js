@@ -131,9 +131,55 @@ exports.postComments = async (req, res) => {
 
 // 
 exports.editComments = async (req, res) => {
+    if (!objectID.isValid(req.params.id))
+        return res.status(400).send("ID unkonwn:" + req.params.id);
 
+    try {
+        await postModel.findById(req.params.id)
+            .then((docs) => {
+                const theComment = docs.comments.find((comment) => {
+                    comment._id.equals(req.body.commentId)
+                })
+                console.log(theComment)
+                if (!theComment) res.status(400).send("Comment not found")
+                else {
+
+                    theComment.text = req.body.text
+                    return docs.save((error) => {
+                        if (!error) res.status(200).send(docs)
+                        res.status(500).send(error)
+                    })
+                }
+            })
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 exports.deleteComments = async (req, res) => {
+    if (!objectID.isValid(req.params.id))
+        return res.status(400).send("ID unkonwn:" + req.params.id);
+
+    try {
+        postModel.findByIdAndUpdate(
+            req.params.id, {
+            $pull: {
+                comments: {
+                    _id: req.body.commentId
+                }
+            }
+        },{
+            new: true
+        }
+            , (error, docs) => {
+                if (!error) {
+                    res.status(201).send(docs)
+                } else {
+                    res.status(400).send(error)
+                }
+            })
+    } catch (error) {
+        res.status(400).send(error)
+    }
 
 }

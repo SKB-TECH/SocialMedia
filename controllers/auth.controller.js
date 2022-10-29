@@ -24,7 +24,6 @@ exports.signUp = async (req, res) => {
         res.status(200).send({ errors })
     }
 }
-
 // Authentification de l'utilisateur
 exports.signIn = async (req, res) => {
     const { email, password } = req.body

@@ -1,8 +1,0 @@
-const userModel = require('../models/usermodel')
-const objetID = require('mongoose').Types.ObjectId
-
-// Affiche tout les utilisateurs
-exports.getAllUsers = async (req, res, next) => {
-    const users = await userModel.find().select('-password')//afficher tout mais pas le 
-    res.status(200).json(users)
-}
